@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from "react-router-dom"
 // import { CourseContext } from './Context/Context';
 
 
@@ -11,15 +11,14 @@ import axios from 'axios';
 const CourseDetail = (props) => {
   //useState sets the state for the Courses component.  setCourses is called when the axios call is made to the server and the response is saved into the state.
     const [ course, setCourse ] = useState([]);
-    // const { courses } = useContext(CourseContext);
-    // const courseLength = courses.length;
-
-//How could we get `http://localhost:5000/api/courses/${props.match.params.id}`  to work?
+    //id gets the course id from the URL throuugh useParams - :id is set in the route in app, and useParams is able to pull the id from the URL based on the route's id.
+    let { id } = useParams();
+    console.log(id);
+//`http://localhost:5000/api/courses/${id}` pulls in the course id from the URL and uses it to pull the course information from the server.
   const getData = () => {
-      axios.get(`http://localhost:5000/api/courses/2`)
+      axios.get(`http://localhost:5000/api/courses/${id}`)
       //The response from axios request is saved into the state, pushed into the array, and then the array is returned.
       .then(response => setCourse(response.data),
-          console.log('The request has run'),
           console.log(course))
           .catch(error => {
               console.log(error.message)
@@ -30,7 +29,6 @@ const CourseDetail = (props) => {
       getData();
   }, []);
   
-    // console.log(courseLength);
   
     return (
    

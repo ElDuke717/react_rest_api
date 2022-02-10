@@ -4,7 +4,8 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Routes
+  Routes,
+  useParams
 } from 'react-router-dom';
 
 //import app elements
@@ -31,7 +32,7 @@ function App() {
         {/* course id must be passed via context in order to avoid making the API call in App and have to do prop drilling. Since we're 
         making the API call separately in Courses and CourseDetail, we need a way to pass the id between a specific Course when clicked
         and CourseDetail so that the data for the specific course can be queried via the API's URL*/}
-        <Route path="/coursedetail" element={<CourseDetail />} />
+        <Route path="/coursedetail/courses/:id" element={<CourseDetail />} />
         <Route path="/createcourse" element={<CreateCourse/>} />
         <Route path="/updatecourse" element={<UpdateCourse/>} />
         <Route path="/signin" element={<UserSignIn/>} />

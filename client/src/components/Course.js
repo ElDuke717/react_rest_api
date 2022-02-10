@@ -8,11 +8,9 @@ const Course = (props) => {
     //  console.log(props.title)
      console.log(props.id)
     return(
-            <Link className="course--module course--link" to={{pathname: `coursedetail`, state: { courseId: 'Chicken' } }} >
+            <Link className="course--module course--link" to={{pathname: `coursedetail/courses/${props.id}`}} >
                     <h2 className="course--label">Course</h2>
                     <h3 className="course--title">{props.title}</h3>
-                    <p>{props.id}</p>
-                    <p>{props.courseLink}</p>
             </Link>
 
     )
