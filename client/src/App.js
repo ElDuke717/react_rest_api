@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useParams
 } from 'react-router-dom';
 
 //import app elements
@@ -21,7 +20,7 @@ import DeleteCourse from './components/DeleteCourse';
 
 
 function App() {
-  
+
   return (
     <Router>
       <div> 
@@ -29,12 +28,9 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Courses/>} />
         <Route path="/courses" element={<Courses/>} />
-        {/* course id must be passed via context in order to avoid making the API call in App and have to do prop drilling. Since we're 
-        making the API call separately in Courses and CourseDetail, we need a way to pass the id between a specific Course when clicked
-        and CourseDetail so that the data for the specific course can be queried via the API's URL*/}
-        <Route path="/coursedetail/courses/:id" element={<CourseDetail />} />
-        <Route path="/createcourse" element={<CreateCourse/>} />
-        <Route path="/updatecourse" element={<UpdateCourse/>} />
+        <Route path="/courses/:id" element={<CourseDetail />} />
+        <Route path="/create" element={<CreateCourse/>} />
+        <Route path="/courses/:id/update" element={<UpdateCourse/>} />
         <Route path="/signin" element={<UserSignIn/>} />
         <Route path="/signup" element={<UserSignUp/>} />
         <Route path="/signout" element={<UserSignOut/>} />

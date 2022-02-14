@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 // import { CourseContext } from './Context/Context';
 
 
@@ -13,13 +13,12 @@ const CourseDetail = (props) => {
     const [ course, setCourse ] = useState([]);
     //id gets the course id from the URL throuugh useParams - :id is set in the route in app, and useParams is able to pull the id from the URL based on the route's id.
     let { id } = useParams();
-    console.log(id);
-//`http://localhost:5000/api/courses/${id}` pulls in the course id from the URL and uses it to pull the course information from the server.
+
+    //`http://localhost:5000/api/courses/${id}` pulls in the course id from the URL and uses it to pull the course information from the server.
   const getData = () => {
       axios.get(`http://localhost:5000/api/courses/${id}`)
       //The response from axios request is saved into the state, pushed into the array, and then the array is returned.
-      .then(response => setCourse(response.data),
-          console.log(course))
+      .then(response => setCourse(response.data))
           .catch(error => {
               console.log(error.message)
           });    
@@ -27,7 +26,7 @@ const CourseDetail = (props) => {
   //useEffect is called after the component is rendered and allows the axios fetch request to complete before it proceeds. 
   useEffect(() => {
       getData();
-  }, []);
+  },);
   
   
     return (
@@ -36,9 +35,9 @@ const CourseDetail = (props) => {
         <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <a className="button" href="/updatecourse">Update Course</a>
+                    <Link className="button" to={{pathname:`update`}}>Update Course </Link>
                     <a className="button" href="deletecourse">Delete Course</a>
-                    <a className="button button-secondary" href="/courses">Return to List</a>
+                    <a className="button button-secondary" href="/">Return to List</a>
                 </div>
             </div>
             
@@ -49,7 +48,7 @@ const CourseDetail = (props) => {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
-                            {/* <p>By {course.user.firstName} {course.user.lastName}</p> */}
+                            {course.user ? <p>By {course.user.firstName} {course.user.lastName}</p> : <p> No User Found </p>}
 
                             <p>{course.description}</p>
                             

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from './components/Context/Context'
+// import { Provider } from './components/Context/Context'
 
 
 import './index.css';

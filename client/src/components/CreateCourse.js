@@ -1,39 +1,98 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const CreateCourse = () => {
+export default class CreateCourse extends Component {
+    state = { 
+        title: '',
+        description: '',
+        estimatedTime: '',
+        materialsNeeded: '',
+        errors: []
+    }
+    
+    render() {
+        const {
+            title,
+            description,
+            estimatedTime,
+            materialsNeeded,
+            errors,
+        } = this.state;
+
     return (
-        <div className="wrap">
+            <div className="wrap">
                 <h2>Create Course</h2>
-                <div className="validation--errors">
+                {/* <div className="validation--errors">
                     <h3>Validation Errors</h3>
                     <ul>
                         <li>Please provide a value for "Title"</li>
                         <li>Please provide a value for "Description"</li>
                     </ul>
-                </div>
-                {/* <form>
+                </div> */}
+                <form>
                     <div className="main--flex">
                         <div>
-                            <label for="courseTitle">Course Title</label>
-                            <input id="courseTitle" name="courseTitle" type="text" value="">
+                            <label htmlFor="courseTitle">Course Title</label>
+                            <input 
+                            id="courseTitle" 
+                            name="courseTitle" 
+                            type="text" 
+                            value={title}
+                            onChange={this.change}
+                            />
 
-                            <p>By Joe Smith</p>
+                            <p>By: User</p>
 
-                            <label for="courseDescription">Course Description</label>
-                            <textarea id="courseDescription" name="courseDescription"></textarea>
+                            <label htmlFor="courseDescription">Course Description</label>
+                            <textarea 
+                            id="courseDescription" 
+                            name="courseDescription"
+                            type="text"
+                            value={description}
+                            onChange={this.change}
+                            />
+
+                            
                         </div>
                         <div>
-                            <label for="estimatedTime">Estimated Time</label>
-                            <input id="estimatedTime" name="estimatedTime" type="text" value="">
+                        <label htmlFor="courseEstimatedTime">Estimated Time</label>
+                            <input
+                            id="courseEstimatedTime"
+                            name="courseEstimatedTime"
+                            type="text"
+                            value={estimatedTime}
+                            onChange={this.change}
+                            />
 
-                            <label for="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
+                            <label htmlFor="courseMaterialsNeeded">Materials Needed</label>
+                            <input
+                            id="courseMaterialsNeeded"
+                            name="courseMaterialsNeeded"
+                            type="text"
+                            value={materialsNeeded}
+                            onChange={this.change}
+                            />
                         </div>
                     </div>
-                    <button className="button" type="submit">Create Course</button><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
-                </form> */}
+                    <button className="button" type="submit">Create Course</button>
+                    <button className="button button-secondary" 
+                    // onClick={e.preventDefault()} 
+                    href='/'>Cancel</button>
+                    </form>
             </div>
         )
+    }
+
+    change = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+    
+        this.setState(() => {
+          return {
+            [name]: value
+          };
+        });
+      }
+
+
 }
 
-export default CreateCourse;
