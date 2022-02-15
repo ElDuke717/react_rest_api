@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link }from 'react-router-dom';
 export default class UpdateCourse extends Component {
     state = { 
         title: '',
@@ -76,7 +76,7 @@ export default class UpdateCourse extends Component {
                     <button className="button" type="submit">Update Course</button>
                     <button className="button button-secondary" 
                     // onClick={e.preventDefault()} 
-                    href='/'>Cancel</button>
+                    href='/'><Link to="/">Cancel</Link></button>
                     </form>
             </div>
         )

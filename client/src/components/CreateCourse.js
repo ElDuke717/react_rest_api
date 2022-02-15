@@ -1,34 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default class CreateCourse extends Component {
-    state = { 
-        title: '',
-        description: '',
-        estimatedTime: '',
-        materialsNeeded: '',
-        errors: []
-    }
+export default function CreateCourse() {
     
-    render() {
-        const {
-            title,
-            description,
-            estimatedTime,
-            materialsNeeded,
-            errors,
-        } = this.state;
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [estimatedTime, setEstimatedTime] = useState('');
+    const [materialsNeeded, setMaterialsNeeded] = useState('');
+    const [errors, setErrors] = useState([]);
+    
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('cereal');
+        try {
+            const response = await fetch('http://localhost:5000/api/courses', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title,
+                    description,
+                    estimatedTime,
+                    materialsNeeded,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(response);
+            console.log(title);
+            console.log('sausage');
+            const json = await response.json();
+            console.log(json);
+            console.log(errors);
+            if (json.errors) {
+                console.log('chicken in a biscuit');
+                setErrors(json.errors);
+                console.log('oatmeal');
+            } else {
+                setTitle('');
+                setDescription('');
+                setEstimatedTime('');
+                setMaterialsNeeded('');
+                setErrors([]);
+            }
+        } catch (err) {
+            console.error(err);
+            console.log('pancakes');
+        }
+    }
 
     return (
             <div className="wrap">
                 <h2>Create Course</h2>
-                {/* <div className="validation--errors">
-                    <h3>Validation Errors</h3>
-                    <ul>
-                        <li>Please provide a value for "Title"</li>
-                        <li>Please provide a value for "Description"</li>
-                    </ul>
-                </div> */}
-                <form>
+                    { errors.length > 0 ? 
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            <li>Please provide a value for "Title"</li>
+                            <li>Please provide a value for "Description"</li>
+                        </ul> 
+                    </div> 
+                : null }
+                <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>
                             <label htmlFor="courseTitle">Course Title</label>
@@ -37,9 +69,9 @@ export default class CreateCourse extends Component {
                             name="courseTitle" 
                             type="text" 
                             value={title}
-                            onChange={this.change}
+                            onChange={(e) => setTitle(e.target.value)}
                             />
-
+                            {/* User will have to be added dynamically after authorization is set up. */}
                             <p>By: User</p>
 
                             <label htmlFor="courseDescription">Course Description</label>
@@ -48,7 +80,7 @@ export default class CreateCourse extends Component {
                             name="courseDescription"
                             type="text"
                             value={description}
-                            onChange={this.change}
+                            onChange={(e) => setDescription(e.target.value)}
                             />
 
                             
@@ -60,7 +92,7 @@ export default class CreateCourse extends Component {
                             name="courseEstimatedTime"
                             type="text"
                             value={estimatedTime}
-                            onChange={this.change}
+                            onChange={(e) => setEstimatedTime(e.target.value)}
                             />
 
                             <label htmlFor="courseMaterialsNeeded">Materials Needed</label>
@@ -69,30 +101,16 @@ export default class CreateCourse extends Component {
                             name="courseMaterialsNeeded"
                             type="text"
                             value={materialsNeeded}
-                            onChange={this.change}
+                            onChange={(e) => setMaterialsNeeded(e.target.value)}
                             />
                         </div>
                     </div>
                     <button className="button" type="submit">Create Course</button>
-                    <button className="button button-secondary" 
-                    // onClick={e.preventDefault()} 
-                    href='/'>Cancel</button>
-                    </form>
+                    <button className="button button-secondary">
+                    <Link to="/">Cancel</Link> </button>
+                    </form>  
             </div>
         )
     }
 
-    change = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-    
-        this.setState(() => {
-          return {
-            [name]: value
-          };
-        });
-      }
-
-
-}
 
