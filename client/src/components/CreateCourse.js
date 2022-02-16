@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+//import axios from 'axios';
 
 export default function CreateCourse() {
     
@@ -7,6 +8,8 @@ export default function CreateCourse() {
     const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
+    const [userName , setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
     
     let handleSubmit = async (e) => {
@@ -20,13 +23,20 @@ export default function CreateCourse() {
                     description,
                     estimatedTime,
                     materialsNeeded,
+                    userName: 'joe@password.com',
+                    password: 'joepassword'
                 }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response);
+            console.log(response.body);
             console.log(title);
+            console.log(description);
+            console.log(estimatedTime);
+            console.log(materialsNeeded);
+            console.log(userName);
+            console.log(password);
             console.log('sausage');
             const json = await response.json();
             console.log(json);
@@ -40,6 +50,8 @@ export default function CreateCourse() {
                 setDescription('');
                 setEstimatedTime('');
                 setMaterialsNeeded('');
+                setUserName('');
+                setPassword('');
                 setErrors([]);
             }
         } catch (err) {

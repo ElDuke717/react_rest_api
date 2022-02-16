@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+//import { Navigate } from 'react-router-dom';
 
 const Form = (props) => {
   const {
@@ -27,7 +27,7 @@ const Form = (props) => {
         {elements()}
         <div className="pad-bottom">
           <button className="button" type="submit">{submitButtonText}</button>
-          <button className="button button-secondary" onClick={<Navigate to="/courses" replace = {true}/>}>Cancel</button>
+          <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

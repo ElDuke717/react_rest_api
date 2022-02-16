@@ -10,10 +10,10 @@ export class Provider extends Component {
     authenticatedUser: Cookies.getJSON('authenticatedUser') || null
   };
 
-  constructor() {
-    super();
-    //this.data = new Data();
-  }
+  // constructor() {
+  //   super();
+  //   //this.data = new Data();
+  // }
 
   render() {
     const { authenticatedUser } = this.state;
@@ -73,4 +73,4 @@ export const Consumer = Context.Consumer;
   }
 }
 
-export default {withContext, Context}
+//export default {withContext, Context}
